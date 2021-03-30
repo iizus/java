@@ -1,6 +1,9 @@
-FROM maven:3-openjdk-11
+FROM maven:3-openjdk-15
 
-RUN git clone https://github.com/aws/aws-iot-device-sdk-java.git
+ARG SDK=aws-iot-device-sdk-java
+ARG REPO=https://github.com/aws/${SDK}.git
 
-WORKDIR aws-iot-device-sdk-java
+RUN git clone $REPO
+
+WORKDIR $SDK
 RUN mvn clean install -Dgpg.skip=true
